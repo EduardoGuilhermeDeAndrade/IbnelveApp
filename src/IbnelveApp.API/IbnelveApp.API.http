@@ -1,0 +1,6 @@
+@IbnelveApp.API_HostAddress = http://localhost:5091
+
+GET {{IbnelveApp.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
