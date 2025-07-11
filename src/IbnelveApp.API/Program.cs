@@ -2,6 +2,7 @@ using IbnelveApp.Application.Interfaces;
 using IbnelveApp.Application.Services;
 using IbnelveApp.Infrastructure.Data;
 using IbnelveApp.Infrastructure.Repositories;
+using IbnelveApp.Infrastructure.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -32,6 +33,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseGlobalExceptionMiddleware();
 //app.UseHttpsRedirection();
 app.UseAuthorization(); // Boa prática adicionar
 

@@ -43,7 +43,19 @@ public class EquipamentoService : IEquipamentoService
         await _repositorio.AtualizarAsync(equipamento);
     }
 
-    public async Task RemoverAsync(Guid id)
+    public async Task RemoverAsync(Guid id, bool logico = true)
+    {
+        if (logico)
+        {
+            await RemoverLogicamenteAsync(id);
+        }
+        else
+        {
+            await RemoverFisicamenteAsync(id);
+        }
+    }
+
+    public async Task RemoverLogicamenteAsync(Guid id)
     {
         var equipamento = await _repositorio.ObterPorIdAsync(id);
         if (equipamento == null) return;
@@ -52,5 +64,19 @@ public class EquipamentoService : IEquipamentoService
         equipamento.DataAlteracao = DateTime.UtcNow;
 
         await _repositorio.AtualizarAsync(equipamento);
+    }
+
+    public async Task RemoverFisicamenteAsync(Guid id)
+    {
+        var equipamento = await _repositorio.ObterPorIdAsync(id);
+        if (equipamento == null) return;
+
+        await _repositorio.RemoverAsync(equipamento);
+    }
+
+    public async Task<EquipamentoDto> ObterPorNumeroControleAsync(string numeroControle)
+    {
+        var equipamento = await _repositorio.ObterPorNumeroControleAsync(numeroControle);
+        return equipamento.ToDto();
     }
 }
