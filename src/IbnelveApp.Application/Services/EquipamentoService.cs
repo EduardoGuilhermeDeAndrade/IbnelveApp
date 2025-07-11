@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using IbnelveApp.Application.DTOs;
+﻿using IbnelveApp.Application.DTOs;
 using IbnelveApp.Application.Interfaces;
+using IbnelveApp.Application.Mappings;
 using IbnelveApp.Domain.Entities;
 
 namespace IbnelveApp.Application.Services;
@@ -8,29 +8,27 @@ namespace IbnelveApp.Application.Services;
 public class EquipamentoService : IEquipamentoService
 {
     private readonly IEquipamentoRepositorio _repositorio;
-    private readonly IMapper _mapper;
 
-    public EquipamentoService(IEquipamentoRepositorio repositorio, IMapper mapper)
+    public EquipamentoService(IEquipamentoRepositorio repositorio)
     {
         _repositorio = repositorio;
-        _mapper = mapper;
     }
 
     public async Task<IEnumerable<EquipamentoDto>> ObterTodosAsync()
     {
         var equipamentos = await _repositorio.ObterTodosAsync();
-        return _mapper.Map<IEnumerable<EquipamentoDto>>(equipamentos);
+        return equipamentos.Select(p => p.ToDto()); 
     }
 
     public async Task<EquipamentoDto> ObterPorIdAsync(Guid id)
     {
         var equipamento = await _repositorio.ObterPorIdAsync(id);
-        return _mapper.Map<EquipamentoDto>(equipamento);
+        return equipamento.ToDto();
     }
 
     public async Task AdicionarAsync(EquipamentoDto dto)
     {
-        var equipamento = _mapper.Map<Equipamento>(dto);
+        var equipamento = dto.ToEntity();
         await _repositorio.AdicionarAsync(equipamento);
     }
 
@@ -39,7 +37,7 @@ public class EquipamentoService : IEquipamentoService
         var equipamento = await _repositorio.ObterPorIdAsync(dto.Id);
         if (equipamento == null) return;
 
-        _mapper.Map(dto, equipamento);
+        equipamento.UpdateEntity(dto);
         equipamento.DataAlteracao = DateTime.UtcNow;
 
         await _repositorio.AtualizarAsync(equipamento);

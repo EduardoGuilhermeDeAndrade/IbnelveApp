@@ -22,8 +22,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IEquipamentoRepositorio, EquipamentoRepositorio>();
 builder.Services.AddScoped<IEquipamentoService, EquipamentoService>();
 
-builder.Services.AddAutoMapper(typeof(MappingProfile)); // registra o AutoMapper
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
