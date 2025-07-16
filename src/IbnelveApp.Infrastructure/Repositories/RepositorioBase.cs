@@ -1,6 +1,6 @@
-﻿using IbnelveApp.Application.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using IbnelveApp.Infrastructure.Data;
+using IbnelveApp.Application.Interfaces.Repositorios;
 
 namespace IbnelveApp.Infrastructure.Repositories;
 

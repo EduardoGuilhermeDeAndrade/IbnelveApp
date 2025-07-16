@@ -4,11 +4,31 @@ using IbnelveApp.Infrastructure.Data;
 using IbnelveApp.Infrastructure.Repositories;
 using IbnelveApp.Infrastructure.Middleware;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using IbnelveApp.Application.Interfaces.Repositorios;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpContextAccessor();
+
+// Configuração da Autenticação JWT
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters { /* ... */ };
+});
+
+// Configuração das Políticas de Autorização (Claims/Roles)
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("GerenteOuSuperior", policy => policy.RequireRole("Admin", "Gerente"));
+});
 
 
 // Add services
@@ -34,8 +54,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseGlobalExceptionMiddleware();
-//app.UseHttpsRedirection();
-app.UseAuthorization(); // Boa prática adicionar
+// Middlewares de segurança (a ordem é MUITO importante)
+app.UseAuthentication(); // 1. Identifica o usuário a partir do token.
+app.UseAuthorization();  // 2. Verifica se o usuário identificado tem permissão.
 
 app.MapControllers(); // <-- Esta linha mapeia todos os seus controllers
 

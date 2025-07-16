@@ -1,5 +1,6 @@
-﻿using IbnelveApp.Application.DTOs;
+﻿using IbnelveApp.Application.DTOs.Equipamento;
 using IbnelveApp.Application.Interfaces;
+using IbnelveApp.Application.Interfaces.Repositorios;
 using IbnelveApp.Application.Mappings;
 using IbnelveApp.Domain.Entities;
 

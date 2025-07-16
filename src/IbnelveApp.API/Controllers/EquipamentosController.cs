@@ -1,12 +1,14 @@
-﻿using IbnelveApp.Application.DTOs;
+﻿using IbnelveApp.Application.DTOs.Equipamento;
 using IbnelveApp.Application.Interfaces;
 using IbnelveApp.Application.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IbnelveApp.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize] // <-- Exige que qualquer usuário esteja autenticado
 public class EquipamentosController : ControllerBase
 {
     private readonly IEquipamentoService _service;
@@ -68,6 +70,7 @@ public class EquipamentosController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Policy = "GerenteOuSuperior")] // Apenas Gerentes ou Admins podem deletar
     public async Task<IActionResult> DeleteLogical(Guid id)
     {
         await _service.RemoverAsync(id, true);

@@ -1,0 +1,8 @@
+﻿namespace IbnelveApp.Application.DTOs.Tenant;
+
+public class TenantDto
+{
+    public Guid Id { get; set; }
+    public string Nome { get; set; }
+    public bool IsAtivo { get; set; }
+}

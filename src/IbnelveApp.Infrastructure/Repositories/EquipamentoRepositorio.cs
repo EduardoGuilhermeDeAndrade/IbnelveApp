@@ -1,4 +1,4 @@
-﻿using IbnelveApp.Application.Interfaces;
+﻿using IbnelveApp.Application.Interfaces.Repositorios;
 using IbnelveApp.Domain.Entities;
 using IbnelveApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;

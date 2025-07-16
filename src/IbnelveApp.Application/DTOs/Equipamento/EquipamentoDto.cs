@@ -1,4 +1,4 @@
-﻿namespace IbnelveApp.Application.DTOs;
+﻿namespace IbnelveApp.Application.DTOs.Equipamento;
 
 public class EquipamentoDto
 {

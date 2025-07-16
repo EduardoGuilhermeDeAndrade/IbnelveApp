@@ -1,4 +1,4 @@
-﻿using IbnelveApp.Application.DTOs;
+﻿using IbnelveApp.Application.DTOs.Equipamento;
 using IbnelveApp.Domain.Entities;
 
 namespace IbnelveApp.Application.Mappings;

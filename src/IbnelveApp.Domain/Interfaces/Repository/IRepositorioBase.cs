@@ -1,4 +1,4 @@
-﻿namespace IbnelveApp.Application.Interfaces;
+﻿namespace IbnelveApp.Application.Interfaces.Repositorios;
 
 public interface IRepositorioBase<T> where T : class
 {

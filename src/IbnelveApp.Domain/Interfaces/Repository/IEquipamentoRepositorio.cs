@@ -1,6 +1,6 @@
 ﻿using IbnelveApp.Domain.Entities;
 
-namespace IbnelveApp.Application.Interfaces;
+namespace IbnelveApp.Application.Interfaces.Repositorios;
 
 public interface IEquipamentoRepositorio : IRepositorioBase<Equipamento>
 {
